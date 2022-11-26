@@ -18,6 +18,19 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+if [ "$#" -lt 2 ] || [ "${1}" == "--help" ]; then
+  cat <<EOF
+Usage: $(basename "$0") <group> <version>
+
+  <group> group of controller
+  <version> version of controller
+
+Examples:
+  $(basename "$0") samplecontroller v1
+EOF
+  exit 0
+fi
+
 # 注意事项：该脚本生成的zz_generated_deepcopy.go路径不对
 SCRIPT_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 # CODEGEN_PKG=${CODEGEN_PKG:-$(cd "${SCRIPT_ROOT}"; ls -d -1 ./vendor/k8s.io/code-generator 2>/dev/null || echo ../code-generator)}
@@ -27,10 +40,10 @@ CODEGEN_PKG=${GOPATH}/src/github.com/kubernetes/code-generator
 MODULE=$(head -n 1 < go.mod | awk '{print $2}')
 OUTPUT_PKG=pkg/client
 APIS_PKG=pkg/apis
-GROUP=samplecontroller
-VERSION=v1
+GROUP=$1
+VERSION=$2
 bash "${CODEGEN_PKG}"/generate-groups.sh all \
 "${MODULE}"/${OUTPUT_PKG} "${MODULE}"/${APIS_PKG} \
-${GROUP}:${VERSION} \
+"${GROUP}":"${VERSION}" \
 --output-base "${SCRIPT_ROOT}"/../../.. \
 --go-header-file "${SCRIPT_ROOT}"/hack/boilerplate.go.txt \

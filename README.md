@@ -81,9 +81,9 @@ cd $GOPATH/src/github.com/lianyz/sample-controller
 
 ### 生成代码
 
-在sample-controller项目根目录下执行make
+在sample-controller项目根目录下执行make gen
 ```
-➜  sample-controller git:(master) ✗ make
+➜  sample-controller git:(master) ✗ make gen
 hack/update-codegen.sh
 Generating deepcopy funcs
 Generating clientset for samplecontroller:v1 at github.com/lianyz/sample-controller/pkg/client/clientset
@@ -91,4 +91,30 @@ Generating listers for samplecontroller:v1 at github.com/lianyz/sample-controlle
 Generating informers for samplecontroller:v1 at github.com/lianyz/sample-controller/pkg/client/informers
 ```
 
+自动生成以下代码文件
+```
+	new file:   pkg/apis/samplecontroller/v1/zz_generated.deepcopy.go
+	new file:   pkg/client/clientset/versioned/clientset.go
+	new file:   pkg/client/clientset/versioned/doc.go
+	new file:   pkg/client/clientset/versioned/fake/clientset_generated.go
+	new file:   pkg/client/clientset/versioned/fake/doc.go
+	new file:   pkg/client/clientset/versioned/fake/register.go
+	new file:   pkg/client/clientset/versioned/scheme/doc.go
+	new file:   pkg/client/clientset/versioned/scheme/register.go
+	new file:   pkg/client/clientset/versioned/typed/samplecontroller/v1/at.go
+	new file:   pkg/client/clientset/versioned/typed/samplecontroller/v1/doc.go
+	new file:   pkg/client/clientset/versioned/typed/samplecontroller/v1/fake/doc.go
+	new file:   pkg/client/clientset/versioned/typed/samplecontroller/v1/fake/fake_at.go
+	new file:   pkg/client/clientset/versioned/typed/samplecontroller/v1/fake/fake_samplecontroller_client.go
+	new file:   pkg/client/clientset/versioned/typed/samplecontroller/v1/generated_expansion.go
+	new file:   pkg/client/clientset/versioned/typed/samplecontroller/v1/samplecontroller_client.go
+	new file:   pkg/client/informers/externalversions/factory.go
+	new file:   pkg/client/informers/externalversions/generic.go
+	new file:   pkg/client/informers/externalversions/internalinterfaces/factory_interfaces.go
+	new file:   pkg/client/informers/externalversions/samplecontroller/interface.go
+	new file:   pkg/client/informers/externalversions/samplecontroller/v1/at.go
+	new file:   pkg/client/informers/externalversions/samplecontroller/v1/interface.go
+	new file:   pkg/client/listers/samplecontroller/v1/at.go
+	new file:   pkg/client/listers/samplecontroller/v1/expansion_generated.go
+```
 
