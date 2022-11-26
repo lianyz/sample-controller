@@ -78,8 +78,29 @@ cd $GOPATH/src/github.com/lianyz/sample-controller
                 └── types.go
 ```
 
+各文件的主要作用如下所示
+```
+├── go.mod                                      *  go mod init 出来的文件
+├── go.sum                                      *  go mod init 出来的检测文件
+├── hack                                   
+│   ├── boilerplate.go.txt                      *  operator代码框架版权信息头内容
+│   ├── tools.go                                *  用于自动下载code-generator项目
+│   ├── update-codegen.sh                       *  官方sample-controller项目的模板文件，用于填写code-generator中的相关变量
+│   └── verify-codegen.sh                       *  调用update-codegen.sh，并检测代码变化的脚本，CI过程中非常重要
+├── pkg                                         *  标准目录
+│   ├── apis                                    *  标准目录
+│   │   └── samplecontroller                    *  group,API组
+│   │       └── v1alpha1                        *  version,API版本
+│   │           ├── doc.go                      *  代码生成器模板，package相关内容，全局标签填写文件
+│   │           ├── types.go                    *  代码生成器模板，API类型相关内容，局部标签填写文件
+```
 
 ### 生成代码
+
+修改Makefile中group名称和version名称
+```
+hack/update-codegen.sh samplecontroller v1
+```
 
 在sample-controller项目根目录下执行make gen
 ```
