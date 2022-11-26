@@ -23,6 +23,7 @@ SCRIPT_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 # CODEGEN_PKG=${CODEGEN_PKG:-$(cd "${SCRIPT_ROOT}"; ls -d -1 ./vendor/k8s.io/code-generator 2>/dev/null || echo ../code-generator)}
 CODEGEN_PKG=${GOPATH}/src/k8s.io/code-generator
 # 以下命令等价于: MODULE=$(cat go.mod | head -n 1 | awk '{print $2}')
+# 读取go.mod的第一行，用awk分割第一行，读取第二个词
 MODULE=$(head -n 1 < go.mod | awk '{print $2}')
 OUTPUT_PKG=pkg/client
 APIS_PKG=pkg/apis
