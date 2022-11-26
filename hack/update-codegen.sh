@@ -22,22 +22,14 @@ set -o pipefail
 SCRIPT_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 # CODEGEN_PKG=${CODEGEN_PKG:-$(cd "${SCRIPT_ROOT}"; ls -d -1 ./vendor/k8s.io/code-generator 2>/dev/null || echo ../code-generator)}
 CODEGEN_PKG=${GOPATH}/src/k8s.io/code-generator
-MODULE=github.com/lianyz/sample-controller
+# 以下命令等价于: MODULE=$(cat go.mod | head -n 1 | awk '{print $2}')
+MODULE=$(head -n 1 < go.mod | awk '{print $2}')
 OUTPUT_PKG=pkg/client
 APIS_PKG=pkg/apis
 GROUP=samplecontroller
 VERSION=v1
 bash "${CODEGEN_PKG}"/generate-groups.sh all \
-${MODULE}/${OUTPUT_PKG} ${MODULE}/${APIS_PKG} \
+"${MODULE}"/${OUTPUT_PKG} "${MODULE}"/${APIS_PKG} \
 ${GROUP}:${VERSION} \
 --output-base "${SCRIPT_ROOT}"/../../.. \
 --go-header-file "${SCRIPT_ROOT}"/hack/boilerplate.go.txt \
-#####################样例 start##################################
-#注意事项：
-#MODULE需和go.mod文件内容一致
-#"${CODEGEN_PKG}"/generate-groups.sh "deepcopy,client,informer,lister" \
-#  sample-controller/pkg/generated sample-controller/pkg/apis \
-#  samplecontroller:v1 \
-#  --output-base "$(dirname "${BASH_SOURCE[0]}")/../.." \
-#  --go-header-file "${SCRIPT_ROOT}"/hack/boilerplate.go.txt
-#####################样例 end##################################
