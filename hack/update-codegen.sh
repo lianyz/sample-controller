@@ -18,10 +18,11 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+# 注意事项：该脚本生成的zz_generated_deepcopy.go路径不对
 SCRIPT_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 # CODEGEN_PKG=${CODEGEN_PKG:-$(cd "${SCRIPT_ROOT}"; ls -d -1 ./vendor/k8s.io/code-generator 2>/dev/null || echo ../code-generator)}
 CODEGEN_PKG=${GOPATH}/src/k8s.io/code-generator
-MODULE=sample-controller
+MODULE=github.com/lianyz/sample-controller
 OUTPUT_PKG=pkg/client
 APIS_PKG=pkg/apis
 GROUP=samplecontroller
