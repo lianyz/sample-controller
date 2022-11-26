@@ -16,9 +16,9 @@ Informer和Lister是构建控制器的基础，使用前四个代码生成器可
 * 其它代码生成到--output-package指定的目录，例如client-gen, informer-gen, lister-gen等生成器。
 
 
-** 代码生成示例
+## 代码生成示例
 
-*** 安装code-generator工具
+### 安装code-generator工具
 
 将code-generator拉取到本地
 ```
@@ -51,3 +51,44 @@ applyconfiguration-gen   deepcopy-gen             lister-gen               regis
 client-gen               defaulter-gen            openapi-gen              set-gen
 conversion-gen           informer-gen             prerelease-lifecycle-gen
 ```
+
+### 创建示例项目
+
+```
+mkdir -p $GOPATH/src/github.com/lianyz/sample-controller
+cd $GOPATH/src/github.com/lianyz/sample-controller
+```
+
+创建如下结构的目录结构和文件
+```
+├── Makefile
+├── README.md
+├── go.mod
+├── go.sum
+├── hack
+│         ├── boilerplate.go.txt
+│         ├── tools.go
+│         ├── update-codegen.sh
+│         └── verify-codegen.sh
+└── pkg
+    └── apis
+        └── samplecontroller
+            └── v1
+                ├── doc.go
+                └── types.go
+```
+
+
+### 生成代码
+
+在sample-controller项目根目录下执行make
+```
+➜  sample-controller git:(master) ✗ make
+hack/update-codegen.sh
+Generating deepcopy funcs
+Generating clientset for samplecontroller:v1 at github.com/lianyz/sample-controller/pkg/client/clientset
+Generating listers for samplecontroller:v1 at github.com/lianyz/sample-controller/pkg/client/listers
+Generating informers for samplecontroller:v1 at github.com/lianyz/sample-controller/pkg/client/informers
+```
+
+
